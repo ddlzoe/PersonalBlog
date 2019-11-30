@@ -1,6 +1,10 @@
 spring:
   application:
     name: PersonalBlog
+  data:
+    mongodb:
+      uri:
+      database: BlogData
 
 server:
   port: 20001
