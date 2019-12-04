@@ -1,5 +1,5 @@
 module.exports = {
-    outputDir: process.env.NODE_ENV === 'production' ? 'static' : '../src/main/resources/static',
+    outputDir: process.env.NODE_ENV === 'production' ? '../src/main/resources/static' : 'static',
     productionSourceMap: false,
     devServer: {
         proxy: {
