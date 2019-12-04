@@ -5,9 +5,15 @@
 </template>
 
 <script>
-    export default {
-        name : 'TopHeader'
+import api from "../../api/api"
+
+export default {
+    name : 'TopHeader',
+    created(){
+        console.info('Create TopHeader');
+        api.helloWorld();
     }
+}
 </script>
 
 <style scoped>
