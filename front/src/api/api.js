@@ -1,13 +1,9 @@
 import http from './http'
 
-function helloWorld() {
-    http.fetchGet('/helloworld', {}).then((data) => {
-        console.info(data);
-    }).catch((err) => {
-        console.info(err);
-    })
+function getTopHeaderConfig() {
+    return http.fetchGet('/mainpage/config/topheader', {});
 }
 
 export default {
-    helloWorld
+    getTopHeaderConfig
 }
