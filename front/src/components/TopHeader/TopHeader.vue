@@ -38,10 +38,10 @@ export default {
     created(){
         console.info('Create TopHeader');
         api.getTopHeaderConfig().then((res) => {
-            let data = res.data;
-            this.userName = data.userName;
-            this.topTitle = data.topTitle;
-            this.topSubTitle = data.topSubTitle;
+            let configs = res.data;
+            this.userName = configs.userName;
+            this.topTitle = configs.topTitle;
+            this.topSubTitle = configs.topSubTitle;
         });
     }
 }

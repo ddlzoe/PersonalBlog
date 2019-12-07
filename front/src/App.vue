@@ -35,7 +35,8 @@ body {
   margin-right: auto; */
 }
 #content {
-  width: 70%;
+  width: 1200px;
+  margin-top: 10px; 
   margin-left: auto;
   margin-right: auto;
 }
