@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collation = "AdminUser")
+@Document(collection = "adminUser")
 public class AdminUser {
     @Id
     private String userName;

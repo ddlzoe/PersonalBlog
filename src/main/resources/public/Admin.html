@@ -4,9 +4,6 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <!-- Element UI -->
-        <link rel="stylesheet" href="https://unpkg.com/element-ui@2.13.0/lib/theme-chalk/index.css">
-        <link rel="stylesheet" href="admin.css">
         <title>personal-blog-admin</title>
     </head>
     <body style="margin: 0px;">
@@ -45,25 +42,45 @@
     <!-- 开发环境版本，包含了有帮助的命令行警告 -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <!-- 生产环境版本，优化了尺寸和速度 -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://unpkg.com/element-ui@2.13.0/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+
+    <!-- Element UI -->
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.0/lib/index.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.13.0/lib/theme-chalk/index.css">
+    <!-- Element UI -->
+
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qs@6.9.1/dist/qs.js"></script>
+    <!-- AXIOS -->
+
+    <link rel="stylesheet" href="admin.css">
+
     <script>
         new Vue({
-          el: '#app',
-          data: function() {
-            return { 
-                showAdmin: false,
-                userName: null,
-                password: null
+            el: '#app',
+            data: function() {
+                return { 
+                    showAdmin: false,
+                    userName: null,
+                    password: null
+                }
+            },
+            methods: {
+                login: function() {
+                    console.info('Login Function');
+                    let data = {
+                        username: this.userName,
+                        password: this.password
+                    }
+                    axios.post('login', window.Qs.stringify(data)).then(res => {
+                        console.info(data);
+                    }).catch( err => {
+                        console.info(err);
+                    });
+                    // this.showAdmin = true
+                }
             }
-          },
-          methods: {
-              login: function() {
-                  console.info('Login Function');
-
-                  this.showAdmin = true
-              }
-          }
         });
     </script>
 </html>

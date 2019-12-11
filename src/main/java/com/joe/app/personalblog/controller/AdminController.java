@@ -17,25 +17,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-//    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-//    public ResponseEntity<String> addUser(@RequestBody AdminUser user) {
-//        boolean result = adminService.addUser(user);
-//        if(result) {
-//            return ResponseEntity.ok().body("Success");
-//        } else {
-//            return ResponseEntity.ok().body("Failed");
-//        }
-//    }
-
-    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
-    public ResponseEntity<String> addUser() {
-        AdminUser user = new AdminUser();
-        user.setUserName("ddlzoe");
-        user.setPassword("Joe314159");
-        List<String> roles = new ArrayList<>();
-        roles.add("SUPER_ADMIN");
-        roles.add("ADMIN");
-        user.setRoles(roles);
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public ResponseEntity<String> addUser(@RequestBody AdminUser user) {
         boolean result = adminService.addUser(user);
         if(result) {
             return ResponseEntity.ok().body("Success");
