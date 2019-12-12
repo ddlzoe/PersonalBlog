@@ -9,8 +9,8 @@
     <body style="margin: 0px;">
         <div id="app" style="height:100%; width:100%; position: absolute;">
             <transition name="el-zoom-in-top">
-                <el-tabs v-show="showAdmin" tab-position="left" style="height: 100%;">
-                    <el-tab-pane label="用户管理">用户管理</el-tab-pane>
+                <el-tabs v-if="showAdmin" tab-position="left" style="height: 100%;">
+                    <el-tab-pane label="Blog管理"><blog-manage></blog-manage></el-tab-pane>
                     <el-tab-pane label="配置管理">配置管理</el-tab-pane>
                     <el-tab-pane label="角色管理">角色管理</el-tab-pane>
                     <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
@@ -23,15 +23,14 @@
                         登录管理系统
                     </div>
                     <div>
-                        <el-input style="padding-bottom: 15px;"
+                        <el-input style="margin-bottom: 15px;"
                             placeholder="请输入用户名"
                             v-model="userName"
-                            clearable>
+                            >
                         </el-input>
-                        <el-input style="padding-bottom: 15px;"
+                        <el-input style="margin-bottom: 15px;"
                             placeholder="请输入密码"
-                            v-model="password"
-                            clearable>
+                            v-model="password" show-password>
                         </el-input>
                         <el-button type="primary" v-on:click="login()">登录</el-button>
                     </div>
@@ -56,6 +55,12 @@
 
     <link rel="stylesheet" href="admin.css">
 
+
+    <script type="text/x-template" id="blogManage">
+        <button v-on:click="count++">You clicked me {{ count }} times.</button>
+    </script>
+
+    <script src="admin.js"></script>
     <script>
         new Vue({
             el: '#app',
@@ -74,11 +79,33 @@
                         password: this.password
                     }
                     axios.post('login', window.Qs.stringify(data)).then(res => {
-                        console.info(data);
+                        console.info(res);
+                        if(res.data.result == 'success') {
+                            this.showAdmin = true;
+                        } else {
+                            this.$alert('用户名或密码不正确', '登陆失败', {
+                              confirmButtonText: '确定',
+                              callback: action => {
+                                this.$message({
+                                  type: 'info',
+                                  message: `action: ${ action }`
+                                });
+                              }
+                            });
+                        }
                     }).catch( err => {
                         console.info(err);
+                        this.$alert('登陆异常', '登陆失败', {
+                              confirmButtonText: '确定',
+                              callback: action => {
+                                this.$message({
+                                  type: 'info',
+                                  message: `action: ${ action }`
+                                });
+                              }
+                            });
                     });
-                    // this.showAdmin = true
+
                 }
             }
         });
