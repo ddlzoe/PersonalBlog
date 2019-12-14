@@ -3,12 +3,14 @@ package com.joe.app.personalblog.controller;
 import com.joe.app.personalblog.model.AdminUser;
 import com.joe.app.personalblog.model.Blog;
 import com.joe.app.personalblog.service.AdminService;
+import com.joe.app.personalblog.service.BlogConfigurationService;
 import com.joe.app.personalblog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -20,6 +22,9 @@ public class AdminController {
 
     @Autowired
     private BlogService blogService;
+
+    @Autowired
+    private BlogConfigurationService blogConfigSvc;
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public ResponseEntity<String> addUser(@RequestBody AdminUser user) {
@@ -69,5 +74,10 @@ public class AdminController {
     @RequestMapping(value = "findBlogById/{blogId}", method = RequestMethod.GET)
     public ResponseEntity<Blog> findBlogById(@PathVariable String blogId) {
         return ResponseEntity.ok().body(blogService.findBlogById(blogId));
+    }
+
+    @RequestMapping(value = "loadAdminConfig", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, String>> loadAdminConfig() {
+        return ResponseEntity.ok().body(blogConfigSvc.getConfiguration("admin"));
     }
 }

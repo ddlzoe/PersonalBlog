@@ -134,10 +134,22 @@
                 return { 
                     showAdmin: true,
                     userName: null,
-                    password: null
+                    password: null,
+                    adminConfig: {}
                 }
             },
+            created: function() {
+                this.loadConfig();
+            },
             methods: {
+                loadConfig: function() {
+                    //除了load Config 这个方法还肩负着检查是否登录成功的作用...
+                    //粗暴太粗暴了... 这种方式会导致console有403 Error
+                    axios.post('admin/loadAdminConfig', {}).then(res => {
+                        this.adminConfig = res.data;
+                        this.showAdmin = true;
+                    });
+                },
                 login: function() {
                     console.info('Login Function');
                     if(this.userName == null || this.password == null 
@@ -154,7 +166,7 @@
                     axios.post('login', window.Qs.stringify(data)).then(res => {
                         console.info(res);
                         if(res.data.result == 'success') {
-                            this.showAdmin = true;
+                            this.loadConfig();
                         } else {
                             this.$alert('用户名或密码不正确', '登陆失败', {
                                 confirmButtonText: '确定'

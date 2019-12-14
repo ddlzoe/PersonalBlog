@@ -234,6 +234,7 @@ Vue.component('blog-manage', {
                     this.blogData = result;
                 }
             }).catch(err => {
+                console.info(err);
                 this.$alert('当查询所有Blogs时出现异常', '查找失败', {
                     confirmButtonText: '确定'
                 });

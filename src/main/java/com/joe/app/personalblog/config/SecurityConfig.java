@@ -1,6 +1,8 @@
 package com.joe.app.personalblog.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,8 @@ import java.util.Map;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -33,6 +37,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").authenticated()
 //                .anyRequest().permitAll()
                 .and()
+                .exceptionHandling().accessDeniedHandler((req, res, exception) -> {
+                    logger.info("No Access.");
+                    Map<String, String> result = new HashMap<>();
+                    result.put("code", "403");
+                    result.put("result", "unauthenticated");
+                    res.setContentType("application/json;charset=utf-8");
+                    res.setStatus(403);
+                    PrintWriter out = res.getWriter();
+                    out.write(objectMapper.writeValueAsString(result));
+                    out.flush();
+                    out.close();
+                }).authenticationEntryPoint((req, res, exception) -> {
+                    logger.info("No authenticated.");
+                    Map<String, String> result = new HashMap<>();
+                    result.put("code", "403");
+                    result.put("result", "unauthenticated");
+                    res.setContentType("application/json;charset=utf-8");
+                    res.setStatus(403);
+                    PrintWriter out = res.getWriter();
+                    out.write(objectMapper.writeValueAsString(result));
+                    out.flush();
+                    out.close();
+                }).and()
                 .formLogin()
                 .loginPage("/Admin.html").permitAll()
                 .loginProcessingUrl("/login")
@@ -54,8 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     out.write(objectMapper.writeValueAsString(result));
                     out.flush();
                     out.close();
-                })
-                .and().logout().permitAll();
+                }).and().logout().permitAll();
     }
 
     @Override
