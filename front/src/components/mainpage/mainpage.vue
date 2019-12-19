@@ -1,20 +1,22 @@
 <template>
     <el-container id="mainPage">
         <el-main style="padding: 0px;">
-            <content-container v-for="test in 10" :key="test" ></content-container>
+            <content-container v-for="blog in blogsArray" :key="blog.id" :shortBlog="blog" ></content-container>
         </el-main>
         <el-aside width="25%" style="background-color: white; margin-left: 10px; height: 600px;">
             <div style="height: 250px">
                 <div class="asideTitle">推荐文章</div>
-                <div v-for="wen in 7" :key="wen">
+                <p>正在开发</p>
+                <!-- <div v-for="wen in 7" :key="wen">
                     <div class="asideArticleTitle" > 文章标题啦啦啦 文章标题啦啦啦 文章标题啦啦啦</div>
                     <div style="height: 2px;"/>
-                </div>
+                </div> -->
             </div>
-            <div style="height: 10px; background-color: #F5F7FA;"/>
+            <div style="height: 10px; background-color: #e9ecef;"/>
             <div style="height: 340px">
                 <div class="asideTitle">标签</div>
-                <div class="asideTagsBox">
+                <p>正在开发</p>
+                <!-- <div class="asideTagsBox">
                     <el-tag class="asideTag" size="mini">超标签</el-tag>
                     <el-tag class="asideTag" size="mini">超小啦标签</el-tag>
                     <el-tag class="asideTag" size="mini">超小标签</el-tag>
@@ -24,7 +26,7 @@
                     <el-tag class="asideTag" size="mini">超标签</el-tag>
                     <el-tag class="asideTag" size="mini">超小啦标签</el-tag>
                     <el-tag class="asideTag" size="mini">超小标签</el-tag>
-                </div>
+                </div> -->
             </div>
         </el-aside>
      </el-container>
@@ -32,12 +34,28 @@
 
 <script>
 import ContentContainer from './components/ContentContainer';
+import api from "../../api/api";
 
 export default {
-  name: "mainpage",
-  components: {
-    ContentContainer
-  },
+    name: "mainpage",
+    components: {
+        ContentContainer
+    },
+    data () {
+        return {
+            blogsArray: []
+        }
+    },
+    created: function() {
+        this.loadBlogs();
+    },
+    methods: {
+        loadBlogs(){
+            api.findAllBlogsWithoutContent().then(res => {
+                this.blogsArray = res.data;
+            });
+        }
+    }
 };
 </script>
 

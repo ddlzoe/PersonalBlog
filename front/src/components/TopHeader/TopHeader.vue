@@ -3,20 +3,20 @@
         <el-container  style="color: white">
             <el-header>
                 <el-row>
-                    <el-col :span="4" style="height: 60px"><p id="userName">{{ userName }}</p></el-col>
+                    <el-col :span="4" style="height: 60px"><p id="userName">{{ topHeaderConfigs.userName }}</p></el-col>
                     <el-col :span="4" :offset="16">
-                        <el-col :span="8" style="height: 60px; padding-top: 10px;"><p>主页</p></el-col>
+                        <!-- <el-col :span="8" style="height: 60px; padding-top: 10px;"><p>主页</p></el-col>
                         <el-col :span="8" style="height: 60px; padding-top: 10px;"><p>图片</p></el-col>
-                        <el-col :span="8" style="height: 60px; padding-top: 10px;"><p>关于我</p></el-col>
+                        <el-col :span="8" style="height: 60px; padding-top: 10px;"><p>关于我</p></el-col> -->
                     </el-col>
                 </el-row>
             </el-header>
             <el-main style="height: 250px">
                 <div>
-                    <p id="topTitle">{{ topTitle }}</p>
+                    <p id="topTitle">{{ topHeaderConfigs.topTitle }}</p>
                 </div>
                 <div id="topSubTitle">
-                    <p>{{ topSubTitle }}</p>
+                    <p>{{ topHeaderConfigs.topSubTitle }}</p>
                 </div>
             </el-main>
         </el-container>
@@ -24,25 +24,21 @@
 </template>
 
 <script>
-import api from "../../api/api"
+
 
 export default {
     name : 'TopHeader',
+    props: {
+        topHeaderConfigs: {}
+    },
     data () {
         return {
-            userName : 'User Name',
-            topTitle : 'Top Title',
-            topSubTitle : 'Top Sub Title'
         }
     },
     created(){
         console.info('Create TopHeader');
-        api.getTopHeaderConfig().then((res) => {
-            let configs = res.data;
-            this.userName = configs.userName;
-            this.topTitle = configs.topTitle;
-            this.topSubTitle = configs.topSubTitle;
-        });
+    },
+    methods: {
     }
 }
 </script>

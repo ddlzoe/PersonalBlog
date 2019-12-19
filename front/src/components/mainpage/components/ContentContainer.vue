@@ -1,18 +1,18 @@
 <template>
     <div class="main_cc">
-        <div class="main_title">{{ contentTitle }}</div>
-        <div class="main_content" v-on:click="clickContent">{{ content }}</div>
+        <div class="main_title">{{ shortBlog.title }}</div>
+        <div class="main_content" v-on:click="clickContent">{{ shortBlog.partContent }}</div>
         <div class="main_bar">
             <el-row :gutter="20" style="width: 500px;">
-                <el-col :span="8">
+                <el-col :span="10">
                     <i class="el-icon-date"></i>
-                    <span style="padding-left:10px;">{{ createdDate }}</span>
+                    <span style="padding-left:10px;">{{ shortBlog.createdTime }}</span>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="7">
                     <i class="el-icon-edit-outline"></i>
                     <span style="padding-left:10px;">{{ commentTimes }}评论</span>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="7">
                     <i class="el-icon-reading"></i>
                     <span style="padding-left:10px;">{{ viewTimes }}浏览</span>
                 </el-col>
@@ -24,11 +24,14 @@
 <script>
     export default {
         name: 'ContentContainer',
+        props: {
+            shortBlog: {}
+        },
         data () {
             return {
-                contentTitle : 'VUE初次使用',
-                content : 'dart代码转换成app.dill形式的kernel文件。frontend_server.dart.snapshot入口位于Flutter引擎中的 flutter/frontend_server/bin/starter.dart。lutter build aot命令将dart源码编译成AOT产物，其主要工作为前端编译器frontend_server和机器码生成，本文先介绍前端编译器frontend_server的工作原理。可',
-                createdDate : '2019-12-08',
+                // contentTitle : 'VUE初次使用',
+                // content : '',
+                // createdDate : '2019-12-08',
                 commentTimes : 0,
                 viewTimes : 0
             }
