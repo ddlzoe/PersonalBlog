@@ -29,16 +29,19 @@
         },
         data () {
             return {
-                // contentTitle : 'VUE初次使用',
-                // content : '',
-                // createdDate : '2019-12-08',
                 commentTimes : 0,
                 viewTimes : 0
             }
         },
         methods:{
             clickContent: function() {
-                console.info("Client Context");
+                let routeData = this.$router.resolve({
+                    name: 'Article',
+                    query: {
+                        id: this.shortBlog.id
+                    }
+                });
+                window.open(routeData.href, '_blank');
             }
         }
     }
